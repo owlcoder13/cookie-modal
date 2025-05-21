@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+import { CookieModelOptions } from './types';
 const COOKIE_SETTINGS_NAME = 'modal-settings';
 
 function setSettingsToCookie(settings: any) {
@@ -9,9 +10,6 @@ function getSettingsFromCookie() {
     return JSON.parse(Cookies.get(COOKIE_SETTINGS_NAME) || '{}');
 }
 
-interface CookieModelOptions {
-    title?: string,
-}
 
 class CookieModalManager {
     private modal: HTMLElement;

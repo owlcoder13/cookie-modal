@@ -1,6 +1,10 @@
+export interface CookieModelOptions {
+    title?: string,
+}
+
 declare global {
     interface Window {
-        initCookieModal: (options: any) => void;
+        initCookieModal: (options?: CookieModelOptions) => void;
     }
 }
 
