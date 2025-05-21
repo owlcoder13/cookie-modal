@@ -1,16 +1,19 @@
 {
     "name": "using-cookie-modal",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Модалка, предупреждающая об исползовании cookie, найстроки использования cookie",
     "main": "dist/index.js",
     "module": "dist/index.esm.js",
+    "unpkg": "dist/index.js",
+    "jsdelivr": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
         "dist"
     ],
     "scripts": {
         "dev": "webpack serve --config webpack.dev.js",
-        "build": "webpack --config webpack.prod.js",
+        "build": "webpack && npm run build:types",
+        "build:types": "tsc --emitDeclarationOnly",
         "typecheck": "tsc --noEmit",
         "prepublishOnly": "npm run build"
     },
