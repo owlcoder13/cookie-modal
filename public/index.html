@@ -29,25 +29,21 @@
             margin-top: 0;
         }
     </style>
+
 </head>
 
 <body>
     <div class="container">
-        <h1>Тестовая страница для Preact виджета</h1>
-        <p>Ниже размещен тестовый виджет:</p>
-        <div class="test-area" id="widget-container"></div>
+        <h1>Тестовая страница для модального окна</h1>
     </div>
 
     <!-- Скрипт виджета будет добавлен автоматически через webpack -->
     <script>
         // После загрузки страницы инициализируем виджет
         document.addEventListener('DOMContentLoaded', () => {
-            if (window.PreactShareWidget) {
-                window.PreactShareWidget.mount({
-                    target: document.getElementById('widget-container'),
-                    content: 'Пример контента для виджета'
-                });
-            }
+            window.initCookieModal({
+                title: 'Cookie modal',
+            })
         });
     </script>
 </body>

@@ -1,7 +1,7 @@
 {
     "name": "using-cookie-modal",
-    "version": "0.1.0",
-    "description": "Подключаемый виджет на Preact",
+    "version": "0.1.1",
+    "description": "Модалка, предупреждающая об исползовании cookie, найстроки использования cookie",
     "main": "dist/index.js",
     "module": "dist/index.esm.js",
     "types": "dist/index.d.ts",
@@ -11,35 +11,27 @@
     "scripts": {
         "dev": "webpack serve --config webpack.dev.js",
         "build": "webpack --config webpack.prod.js",
-        "test": "jest",
         "typecheck": "tsc --noEmit",
         "prepublishOnly": "npm run build"
     },
     "keywords": [
-        "preact",
-        "widget",
-        "component"
+        "cookie modal"
     ],
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "preact": "^10.19.3",
+        "@types/js-cookie": "^3.0.6",
+        "js-cookie": "^3.0.5",
         "prettier": "^3.5.3"
     },
     "devDependencies": {
         "@babel/core": "^7.23.7",
-        "@babel/plugin-transform-react-jsx": "^7.27.1",
         "@babel/preset-env": "^7.23.7",
         "@babel/preset-typescript": "^7.23.7",
-        "@testing-library/jest-dom": "^6.1.6",
-        "@testing-library/preact": "^3.2.3",
-        "@types/jest": "^29.5.11",
         "@types/node": "^20.10.6",
         "babel-loader": "^9.1.3",
         "css-loader": "^6.8.1",
         "html-webpack-plugin": "^5.6.0",
-        "jest": "^29.7.0",
-        "jest-environment-jsdom": "^29.7.0",
         "sass": "^1.69.6",
         "sass-loader": "^13.3.3",
         "style-loader": "^3.3.3",
