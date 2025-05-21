@@ -15,8 +15,8 @@ class CookieModalManager {
     private modal: HTMLElement;
     private options: CookieModelOptions;
 
-    constructor(options: CookieModelOptions) {
-        this.options = options;
+    constructor(options?: CookieModelOptions) {
+        this.options = options || {};
         this.modal = document.createElement('div');
 
         this.modal.classList.add('cookie-modal');
@@ -65,6 +65,6 @@ class CookieModalManager {
     }
 }
 
-export default function initModal(options: CookieModelOptions) {
+export default function initModal(options?: CookieModelOptions) {
     return new CookieModalManager(options);
 }
