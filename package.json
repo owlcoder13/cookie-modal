@@ -1,6 +1,6 @@
 {
     "name": "using-cookie-modal",
-    "version": "0.1.7",
+    "version": "0.1.10",
     "description": "Модалка, предупреждающая об исползовании cookie, найстроки использования cookie",
     "main": "dist/index.js",
     "module": "dist/index.esm.js",

@@ -22,7 +22,7 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'styles.css',
+            filename: 'main.css',
         }),
     ],
     resolve: {

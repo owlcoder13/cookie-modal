@@ -34,7 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 ```html
 
-<script src="https://unpkg.com/using-cookie-modal/dist/index.js"></script>
+<script src="https://unpkg.com/using-cookie-modal/dist/main.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/using-cookie-modal/dist/main.css">
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
