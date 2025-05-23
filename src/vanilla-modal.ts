@@ -208,7 +208,7 @@ class CookieModalManager {
                         ${categories}
                     </div>
                     <div class="cookie-modal__buttons">
-                        <button type="submit" class="cookie-modal__btn--save">
+                        <button type="submit" class="cookie-modal__btn cookie-modal__btn--save">
                             ${this.options.saveButtonLabel}
                         </button>
                     </div>
