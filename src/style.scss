@@ -57,7 +57,7 @@ $border-radius: 14px;
         justify-content: flex-start;
         gap: 10px;
 
-        button {
+        .cookie-modal__btn {
             font-size: 14px;
             background-color: white;
             border: 1px solid rgba(51, 51, 51, 0.2) !important;
@@ -66,10 +66,16 @@ $border-radius: 14px;
 
             transition: 0.2s;
 
+            &--accept-all {
+                background: #6bb47e;
+                color: white;
+            }
+
             &:active,
             &:hover {
                 border-color: #000 !important;
             }
+
         }
     }
 
@@ -167,7 +173,7 @@ $border-radius: 14px;
         &__input {
             display: none;
 
-            &:disabled + .switch__slider {
+            &:disabled+.switch__slider {
                 background: #eee;
                 cursor: not-allowed;
             }

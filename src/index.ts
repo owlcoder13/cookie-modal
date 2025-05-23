@@ -1,5 +1,5 @@
 import initModal from './vanilla-modal';
-import './styles/modal.scss';
+import './style.scss';
 
 if (typeof window !== 'undefined') {
     ((global) => {

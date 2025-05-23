@@ -1,84 +1,55 @@
-# Preact Share Widget
+# Подтверждение использования cookie на сайте
 
-Подключаемый виджет для кнопки "Поделиться" на Preact, который можно использовать на любом сайте.
+Библиотека добавляем модалку для подтверждения cookie на страницу
+
+Библиотека в стадии разработки
 
 ## Особенности
 
-- Легковесный виджет на Preact
-- Адаптивный дизайн
-- Поддержка настройки через опции
-- Автоматически использует существующий Preact/React, если он доступен на странице
-- Подключается как UMD или ESM модуль
+- без react, vue, angular и тд 
+- использует библиотеку js-cookie для запоминания ответа от пользователя
 
 ## Установка
 
 ```bash
-npm install preact-share-widget
+npm install using-cookie-modal
 ```
 
 ## Использование
 
-### Вариант 1: Использование в проекте с NPM
+### Вариант 1: Пример использовани с npm
 
 ```js
-import PreactShareWidget from 'preact-share-widget';
 
-// Монтирование виджета
-const widget = PreactShareWidget.mount({
-  target: document.getElementById('widget-container'),
-  content: 'Этим контентом можно поделиться',
-  title: 'Поделитесь с друзьями',
-  onAction: (action, data) => {
-    console.log(`Действие: ${action}`, data);
-  }
+import initCookieModal from 'using-cookie-modal';
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    initCookieModal({ /* some options here */ });
 });
 
-// Демонтирование виджета при необходимости
-// widget.unmount();
 ```
 
 ### Вариант 2: Подключение через тег script
 
 ```html
-<div id="widget-container"></div>
 
-<script src="https://unpkg.com/preact-share-widget/dist/index.js"></script>
+<script src="https://unpkg.com/using-cookie-modal/dist/main.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/using-cookie-modal/dist/main.css">
+
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    PreactShareWidget.mount({
-      target: document.getElementById('widget-container'),
-      content: 'Этим контентом можно поделиться'
+    document.addEventListener('DOMContentLoaded', () => {
+        initCookieModal({ /* some options here */ });
     });
-  });
 </script>
+
 ```
 
-## Опции
+## Опции initCookieModal (options)
 
-| Опция | Тип | Описание |
-|-------|-----|----------|
-| `target` | HTMLElement | **Обязательно**. DOM элемент для монтирования виджета |
-| `content` | string | Контент для отображения в виджете |
-| `title` | string | Заголовок виджета |
-| `theme` | object | Настройки темы (primaryColor, fontSize, borderRadius) |
-| `onAction` | function | Колбэк вызываемый при действиях пользователя |
+В разработки
 
-## Разработка
-
-```bash
-# Установка зависимостей
-npm install
-
-# Запуск сервера разработки
-npm run dev
-
-# Сборка для продакшена
-npm run build
-
-# Запуск тестов
-npm run test
-```
 
 ## Лицензия
 
-ISC 
+CC 
