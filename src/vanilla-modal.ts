@@ -1,10 +1,13 @@
-import { log } from "node:console";
 import {
-    cookieCategories,
+    defaultUserCookieCategories,
+    defaultCookieCategories,
+    defaultCookieModalOptions,
+} from "./model/defaultData";
+import {
     CookieCategoriesState,
-    defaultCategories,
-} from "./model/cookieCategories";
-import { CookieModelOptions } from "./types";
+    CookieCategory,
+    CookieModalOptions,
+} from "./types";
 import { getConsent, hasConsent, saveConsent } from "./utils/cookieConsent";
 import { createSwitch } from "./utils/createSwitch";
 import { createToggle } from "./utils/createToggle";
@@ -12,14 +15,24 @@ import { getToggleIcon } from "./utils/getToggleIcon";
 
 class CookieModalManager {
     private modal: HTMLElement;
-    private options: CookieModelOptions;
-    private cookieCategories: any;
+    private options: CookieModalOptions;
+    private userCookieCategories: any;
     private openedCategories: any = {};
 
-    constructor(options?: CookieModelOptions) {
-        this.options = options || {};
+    constructor(options?: CookieModalOptions) {
+        this.options = {
+            ...defaultCookieModalOptions,
+            ...options,
+            cookieCategories: options?.cookieCategories
+                ? [...options.cookieCategories]
+                : [...defaultCookieModalOptions.cookieCategories],
+        };
+
         this.modal = document.createElement("div");
-        this.cookieCategories = getConsent() || { ...defaultCategories };
+
+        this.userCookieCategories = getConsent() ?? {
+            ...defaultUserCookieCategories,
+        };
 
         this.modal.classList.add("cookie-modal");
         document.body.appendChild(this.modal);
@@ -81,20 +94,24 @@ class CookieModalManager {
                             stroke-width="1.5"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                        ></path>{" "}
+                        ></path>
                     </g>
                 </svg>
             </button>
-            <div class="cookie-modal__title">Мы используем cookies</div>
+            <div class="cookie-modal__title">
+                ${this.options.mainModalTitle}
+            </div>
         </div>
         <div class="cookie-modal__text">
-            Мы используем cookies для сбора статистики и улучшения
-            пользовательского опыта. Выберите, какие cookies вы
-            разрешаете использовать.
+            ${this.options.mainModalSubtitle}
         </div>
         <div class="cookie-modal__buttons">
-            <button class="cookie-modal__btn cookie-modal__btn--accept-all">Принять все</button>
-            <button class="cookie-modal__btn cookie-modal__btn--settings">Настроить</button>
+            <button class="cookie-modal__btn cookie-modal__btn--accept-all">
+                ${this.options.acceptAllButtonLabel}
+            </button>
+            <button class="cookie-modal__btn cookie-modal__btn--settings">
+                ${this.options.preferencesButtonLabel}
+            </button>
         </div>
     </div>
     `;
@@ -110,7 +127,7 @@ class CookieModalManager {
         this.modal
             .querySelector(".cookie-modal__btn--accept-all")
             ?.addEventListener("click", () => {
-                this.saveCategories({ ...defaultCategories });
+                this.saveCategories({ ...defaultUserCookieCategories });
             });
 
         this.modal
@@ -121,13 +138,13 @@ class CookieModalManager {
     }
 
     renderSettingsScreen() {
-        const categories = cookieCategories
+        const categories = this.options.cookieCategories
             .map((cat) => {
                 const switcher = createSwitch({
-                    checked: this.cookieCategories[cat.key],
+                    checked: this.userCookieCategories[cat.key],
                     label: cat.label,
                     category: cat.key,
-                    disabled: cat.key === "necessary",
+                    disabled: cat.locked ?? false,
                 });
 
                 const toggle = createToggle({
@@ -182,7 +199,9 @@ class CookieModalManager {
                         </g>
                     </svg>
                 </button>
-                <div class="cookie-modal__title">Выберите категории cookies</div>
+                <div class="cookie-modal__title">
+                    ${this.options.preferencesModalTitle}
+                </div>
             </div>
                 <form class="cookie-modal__form">
                     <div class="cookie-modal__list">
@@ -190,7 +209,7 @@ class CookieModalManager {
                     </div>
                     <div class="cookie-modal__buttons">
                         <button type="submit" class="cookie-modal__btn--save">
-                            Сохранить
+                            ${this.options.saveButtonLabel}
                         </button>
                     </div>
                 </form>
@@ -210,16 +229,19 @@ class CookieModalManager {
                 input.addEventListener("change", (e) => {
                     const target = e.target as HTMLInputElement;
                     const cat = target.getAttribute("data-category");
-                    if (!cat || cat === "necessary") return;
 
-                    // 1. Обновляем состояние
-                    this.cookieCategories[cat] = target.checked;
+                    if (!cat) return;
 
-                    // 2. Находим родительский .switch
+                    const targetCategory: CookieCategory | undefined =
+                        defaultCookieCategories.find((c) => c.key === cat);
+
+                    if (!targetCategory || targetCategory.locked) return;
+
+                    this.userCookieCategories[cat] = target.checked;
+
                     const switchDiv = target.closest(".switch");
                     if (!switchDiv) return;
 
-                    // 3. Меняем класс у слайдера
                     const slider = switchDiv.querySelector(".switch__slider");
                     if (slider) {
                         if (target.checked) {
@@ -229,7 +251,6 @@ class CookieModalManager {
                         }
                     }
 
-                    // 4. Меняем стиль у knob
                     const knob = switchDiv.querySelector(
                         ".switch__knob"
                     ) as HTMLElement | null;
@@ -268,11 +289,11 @@ class CookieModalManager {
             .querySelector<HTMLFormElement>(".cookie-modal__form")
             ?.addEventListener("submit", (e) => {
                 e.preventDefault();
-                this.saveCategories({ ...this.cookieCategories });
+                this.saveCategories({ ...this.userCookieCategories });
             });
     }
 }
 
-export default function initModal(options?: CookieModelOptions) {
+export default function initModal(options?: CookieModalOptions) {
     return new CookieModalManager(options);
 }

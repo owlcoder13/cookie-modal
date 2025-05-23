@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { CookieCategoriesState } from "../model/cookieCategories";
+import { CookieCategoriesState } from "../types";
 
 // Ключ в хранилище
 const CONSENT_KEY = "cookieConsent";
