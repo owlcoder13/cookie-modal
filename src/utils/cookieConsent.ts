@@ -11,7 +11,7 @@ type SaveMode = "cookies" | "localStorage";
 const CURRENT_MODE: SaveMode = "cookies";
 
 function setCookie(name: string, value: string) {
-    Cookies.set(name, JSON.stringify(value));
+    Cookies.set(name, value);
 }
 
 function getCookie(name: string): string | null {
