@@ -19,10 +19,12 @@ export type CookieCategoriesState = {
     [K in CookieCategory["key"]]: boolean;
 };
 
+export type ConsentCallback = (
+    consent: CookieCategoriesState
+) => void | Promise<void>;
+
 declare global {
     interface Window {
         initCookieModal: (options?: CookieModalOptions) => void;
     }
 }
-
-export {};

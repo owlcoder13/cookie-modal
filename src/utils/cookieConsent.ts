@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import { CookieCategoriesState } from "../types";
+import { onConsentChanged } from "./usingCookieConsent";
 
 // Ключ в хранилище
 const CONSENT_KEY = "cookieConsent";
@@ -60,4 +61,13 @@ export function saveConsent(categories: CookieCategoriesState) {
     } else {
         localStorage.setItem(CONSENT_KEY, data);
     }
+
+    onConsentChanged();
+}
+
+export function usingCookieCheck(category: string) {
+    const consent = getConsent();
+    if (!consent) return false;
+
+    return !!consent[category];
 }

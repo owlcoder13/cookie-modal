@@ -294,6 +294,6 @@ class CookieModalManager {
     }
 }
 
-export default function initModal(options?: CookieModalOptions) {
+export default function initCookieModal(options?: CookieModalOptions) {
     return new CookieModalManager(options);
 }

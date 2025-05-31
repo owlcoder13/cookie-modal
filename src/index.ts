@@ -1,10 +1,13 @@
-import initModal from './vanilla-modal';
-import './style.scss';
+import initCookieModal from "./vanilla-modal";
+// import "./style.scss";
 
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
     ((global) => {
-        global.initCookieModal = initModal;
+        global.initCookieModal = initCookieModal;
     })(window);
 }
 
-export default initModal;
+export { usingCookieCheck } from "./utils/cookieConsent";
+export { usingCookieAllowed } from "./utils/usingCookieConsent";
+
+export default initCookieModal;
